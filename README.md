@@ -1,9 +1,21 @@
 # FixMyStreet - Pothole Complaint Management System
 
 ## Overview
-FixMyStreet is a modern pothole complaint management system built using **React (Frontend)** and **Golang (Backend)**. It allows users to report potholes, track complaint statuses, and gain insights through a detailed dashboard.
+FixMyStreet é uma aplicação web moderna desenvolvida com React (Frontend) e Golang (Backend) que permite aos cidadãos reportar problemas urbanos, como buracos ou lixo, acompanhar o estado das suas queixas e visualizar estatísticas agregadas num painel interativo.
 
-The application is deployed on an **Azure VM** at **[http://20.39.248.149](http://20.39.248.149)** and leverages **Azure Cosmos DB** for data storage, **Azure Blob Storage** for file uploads, and **Docker** for containerization.
+A solução está totalmente implementada em serviços cloud-native da Azure, com separação de responsabilidades, segurança HTTPS e escalabilidade integrada:
+
+Frontend: Azure Static Web Apps
+
+Backend: Azure Container Instance (via Docker)
+
+Base de dados: Azure Cosmos DB
+
+Armazenamento: Azure Blob Storage
+
+Segurança HTTPS: Cloudflare Proxy
+
+Estatísticas: Azure Functions
 
 ---
 ## Features
