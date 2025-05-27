@@ -44,90 +44,103 @@ Arquitetura totalmente cloud-native na Azure:
 ---
 ## Azure Function Usage
 ### **Endpoints**
-- **`/Test`** – Checks if the application is running.
-- **`/GetStats`** – Retrieves aggregated complaint statistics.
+- **`/GetStats`** – Retorna estatísticas agregadas para o dashboard (acessado pelo painel de admin)..
 
 ### **Cosmos DB & Container Creation**
-- The script automatically checks for the existence of the Cosmos DB and container.
-- If not found, it creates them to ensure smooth deployment.
-- **Why?** This automation ensures the database is always available and configured correctly for new deployments.
+- A criação da base de dados e dos containers é feita automaticamente via script (deploy.sh), usando a Azure CLI.
+- Caso não existam, os recursos serão criados de raiz.
+- **`Porquê?** Garante que o ambiente está sempre pronto e compatível com o backend Go.
 
 ### **Azure Blob Storage for File Uploads**
-- Used to store complaint-related images and documents securely.
-- Scalable, cost-efficient storage with access control for uploaded files.
+- Armazena de forma segura as imagens e documentos anexados às reclamações.
+- Permite acesso via URL pública controlada, e suporta escalabilidade nativa da Azure.
 
 ---
 ## Deployment & Setup
-### 🏗 **How to Run the Application**
+### 🏗 **Como correr a aplicação na Azure (Cloud-Native)**
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-repo/FixMyStreet.git
-   cd FixMyStreet
+   git clone https://github.com/BillyBoy1337/FIxMyStreetNew
+cd FIxMyStreetNew
    ```
-2. **Grant execution permissions** to `deploy.sh`:
+2. **Dar permissões de execução aos scripts:** to `deploy.sh`:
    ```bash
-   chmod +x deploy.sh
+  chmod +x deploy.sh login.sh submit_complaints.sh
    ```
-3. **Run the deploy script**:
-   - For **production**:
+3. **Executar o script de deploy automático:**:
+   - Para **produção**:
      ```bash
-     ./deploy.sh 1
-     ```
-   - For **local development**:
-     ```bash
-     ./deploy.sh
-     ```
-4. **(Optional) Generate dummy complaints**:
-   - **Provide permission** to `login.sh`:
+     ./deploy.sh 1 ou  ./deploy.sh
+     ```  
+ Este script faz:
+-Build do backend em Docker
+-Push para Azure Container Registry
+-Deploy da imagem no Azure Container Instance
+-Deploy do frontend no Azure Static Web App
+
+4. **(Opcional) Gerar reclamações fictícias:**:
+   - **Executar login.sh para obter um token JWT:
+
+** para `login.sh`:
      ```bash
      chmod +x login.sh
      ```
-   - Run `login.sh` to extract a token (update email/password if needed).
-   - Copy the token and paste it into `submit_complaints.sh`.
-   - **Provide permission** to `submit_complaints.sh`:
+   - Copiar o token JWT exibido no terminal (começa com ey...)
+e colar no ficheiro submit_complaints.sh, substituindo o valor da linha Bearer Token
+     
+   - **Dar permissões ao script submit_complaints.sh:** to `submit_complaints.sh`:
      ```bash
      chmod +x submit_complaints.sh
      ```
-   - Run the script to create dummy complaints:
+   - Executar o script para criar reclamações fictícias:
      ```bash
      ./submit_complaints.sh
      ```
 
 ---
 ## User Roles & Permissions
-| Role  | Actions |
+| Papel  | Permissões |
 |--------|------------------------------------------------------------------|
-| **Admin** | View all complaints, update statuses, manage users, and edit complaints. |
-| **User** | Create, edit, and delete their own complaints. View insights and stats. |
+| **Admin** | Gerir todas as reclamações, mudar estado e aceder ao dashboard. |
+| **User** | Criar, editar e acompanhar suas próprias reclamações. |
 
-### **Admin Credentials**
+### **Admin Credenciais**
 - **Email**: `Ak@dev.com`
 - **Password**: `Ak@123`
 
 ---
-## Error Handling & Logging
-- **Logrus** for structured logging to track application errors.
-- **Viper** for configuration management to handle environment settings.
+
+### **📁 Estrutura do Projeto**
+- **frontend/** – – React/Vite com UI e navegação
+- **server/** –– Backend em Go com REST API, Cosmos DB e uploads
+- **scripts/** –– Scripts para login automático e inserção de dados falsos
+- **deploy.sh** –– Script Bash para deploy completo
+- **UI_DEMO/** –– Screenshots e demonstração da aplicação
 
 ---
-Here’s a revised version of your request:
+
+## 🔍 Logging e Monitoramento
+- **PLogrus** – logging estruturado no backend
+- **PViper** – gestão de configs via .yaml
+- **Application Insights** – logs e rastreamento em tempo real na Azure
+
+---
 
 ## UI & Demo  
-To explore the user interface, navigate to the `UI_DEMO` directory and open `Demo.md`.  
-This file contains screenshots showcasing various UI components, including:  
-- The **dashboard**, displaying complaint statistics and insights.  
-- The **complaint submission process**, detailing step-by-step entry fields.  
-- The **admin panel**, where administrators can review and manage complaints.  
+A pasta UI_DEMO/ contém capturas e walkthrough da aplicação:
 
-
----
-## Future Enhancements
-- **Push Notifications**: Alert users about complaint updates.
-- **AI-Based Analysis**: Predict pothole severity from images.
-- **Automated Moderation**: AI-driven content moderation for complaint submissions.
+- **Dashboard com estatísticas**
+- **Submissão de reclamação em 3 passos**
+- **Interface administrativa**
 
 ---
-## Conclusion
-FixMyStreet is an advanced, user-friendly pothole complaint management solution designed for scalability and efficiency. With **Azure services**, **Docker**, and **modern web technologies**, it ensures seamless complaint tracking and resolution.
+## Futuras Melhorias
+- **Notificações push em tempo real**
+- **Análise inteligente de imagens com IA**
+- **Moderação automatizada de conteúdo**
+
+---
+## Conclusão
+FixMyStreet é uma solução moderna, escalável e cloud-native, com deploy automatizado, arquitetura modular e serviços Azure. Ideal para contextos académicos ou municípios reais, oferece uma experiência sólida de desenvolvimento e operação na nuvem.
 
 ---
