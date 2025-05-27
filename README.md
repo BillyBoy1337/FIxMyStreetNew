@@ -5,40 +5,41 @@ FixMyStreet é uma aplicação web moderna desenvolvida com React (Frontend) e G
 
 A solução está totalmente implementada em serviços cloud-native da Azure, com separação de responsabilidades, segurança HTTPS e escalabilidade integrada:
 
-Frontend: Azure Static Web Apps
+Arquitetura totalmente cloud-native na Azure:
 
-Backend: Azure Container Instance (via Docker)
-
-Base de dados: Azure Cosmos DB
-
-Armazenamento: Azure Blob Storage
-
-Segurança HTTPS: Cloudflare Proxy
-
-Estatísticas: Azure Functions
+- **Frontend**: Azure Static Web Apps
+- **Backend**: Azure Container Instance (via Docker)
+- **Base de dados**: Azure Cosmos DB
+- **Armazenamento**: Azure Blob Storage
+- **Segurança HTTPS**: Cloudflare Proxy
+- **Estatísticas**: Azure Functions
 
 ---
 ## Features
 ### 🌟 **User Features**
-- **Dashboard**: View all complaints and statistics categorized by status and location.
-- **Complaint Management**: Easily create, edit, and delete complaints.
-- **Authentication**: Secure login using JWT.
-- **File Uploads**: Users can upload images and documents to support their complaints.
+
+- **Submissão de reclamações com imagem, localização e categoria**
+- **Edição e consulta de reclamações submetidas**
+- **Visualização de estado em tempo real**
+- **Autenticação segura via JWT**
 
 ### 🛠 **Admin Features**
-- **Manage Complaints**: Update complaint statuses and monitor user submissions.
-- **User Management**: View all users and their complaints.
-- **Insights Dashboard**: Track complaint trends and generate reports.
+
+- **Gerir Reclamações**: Atualizar o estado das reclamações e monitorizar as submissões dos utilizadores.
+- **Gestão de Utilizadores**: Visualizar todos os utilizadores e as suas reclamações.
+- **Painel de Estatísticas**: Acompanhar tendências de reclamações e gerar relatórios.
 
 ### 🚀 **Tech Stack**
-- **Frontend**: React, Vite, Material Tailwind CSS
-- **Backend**: Golang
-- **Database**: Azure Cosmos DB
-- **Storage**: Azure Blob Storage
-- **Containerization**: Docker
-- **Configuration Management**: Viper
-- **Logging**: Logrus
-- **Authentication**: JWT
+
+- **Frontend**: React, Vite, Tailwind CSS
+- **Backend**: Golang (Gin), Docker
+- **Base de Dados**: Azure Cosmos DB
+- **Armazenamento**: Azure Blob Storage
+- **Contêineres**: Azure Container Registry + Container Instance
+- **Segurança**: JWT + Cloudflare (proxy HTTPS)
+- **Monitoramento**: Azure Application Insights
+- **CI/CD**: GitHub Actions + Azure Static Web Apps
+
 
 ---
 ## Azure Function Usage
